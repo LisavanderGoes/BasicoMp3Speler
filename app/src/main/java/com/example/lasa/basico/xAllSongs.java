@@ -31,7 +31,7 @@ public class xAllSongs extends Fragment {
     int i;
 
 
-
+    @Deprecated
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

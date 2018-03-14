@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 public class xAlbumCursor extends CursorAdapter {
 
+    @Deprecated
     private LayoutInflater cursorInflater;
 
 

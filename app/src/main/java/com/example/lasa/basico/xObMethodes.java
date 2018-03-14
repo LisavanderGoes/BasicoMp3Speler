@@ -20,6 +20,8 @@ import java.util.List;
  */
 
 public class xObMethodes {
+
+    @Deprecated
     Context context;
     String title;
     String artist;

@@ -13,6 +13,7 @@ public class xItemAdapter extends ArrayAdapter<xObItem> {
     private Activity myContext;
     private xObItem[] datas;
 
+    @Deprecated
     public xItemAdapter(Context context, int textViewResourceId,
                         xObItem[] objects) {
         super(context, textViewResourceId, objects);

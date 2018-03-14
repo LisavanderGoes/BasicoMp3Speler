@@ -15,11 +15,32 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainActivity.PlaceholderFragment.newInstance(position + 1);
+        switch (position) {
+            case 0:
+                infoAllSongsFragment tab1 = new infoAllSongsFragment();
+                return tab1;
+            case 1:
+                infoPlaylistFragment tab2 = new infoPlaylistFragment();
+                return tab2;
+            default:
+                return null;
+        }
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position){
+        switch (position) {
+            case 0:
+                return "Songs";
+            case 1:
+                return "Playlist";
+
+        }
+    return null;
     }
 }

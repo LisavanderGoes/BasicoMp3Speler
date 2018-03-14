@@ -1,7 +1,7 @@
 package com.example.lasa.basico;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class infoPlaylistFragment extends Fragment {
     ObObject obObject = new ObObject();
     Context applicationContext = MainActivity.getContextOfApplication();
-    xObMethodes methode = new xObMethodes(applicationContext);
     ListView listview;
     ArrayList<String> arrayList = obObject.arrayList;
     TextView titleView;
@@ -56,7 +55,6 @@ public class infoPlaylistFragment extends Fragment {
     boolean mBound = false;
 
     //endregion
-    //jhefhuw   jjjjj
 
 
     public infoPlaylistFragment() {
@@ -74,7 +72,7 @@ public class infoPlaylistFragment extends Fragment {
         artistView = (TextView) view.findViewById(R.id.artistmain);
 
 
-    Context applicationContext = MainActivity.getContextOfApplication();
+        Context applicationContext = MainActivity.getContextOfApplication();
         ContentResolver contentResolver = applicationContext.getContentResolver();
         Uri songUri = myUri;
         Cursor songCursor = contentResolver.query(songUri,
