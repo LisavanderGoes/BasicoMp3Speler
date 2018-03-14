@@ -91,7 +91,6 @@ public class infoAllSongsFragment extends Fragment {
                 Context applicationContext = MainActivity.getContextOfApplication();
                 //Toast.makeText(applicationContext.getApplicationContext(),"Click ListItem Number " + position, Toast.LENGTH_LONG).show();
                 ((MainActivity)getActivity()).send(position, listview);
-                //methode.send(position, listview);
             }
         });
 
@@ -99,91 +98,8 @@ public class infoAllSongsFragment extends Fragment {
         return view;
     }
 
-    //region [play music] //probeer dit miss in service te zetten
-    public void send(int pos){
-        currentSongIndex = pos;
-        init(currentSongIndex);
-    }
 
-    public void nextSong(){
-        nextSongIndex = currentSongIndex + 1;
-        currentSongIndex = nextSongIndex;
-        init(currentSongIndex);
 
-    }
-
-    public void previousSong(){
-        nextSongIndex = currentSongIndex - 1;
-        currentSongIndex = nextSongIndex;
-        init(currentSongIndex);
-
-    }
-
-    public void init(int pos){
-        //playAudio(pos);
-    }
-
-    private void playAudio(int pos) {
-        Cursor cursor = (Cursor) listview.getItemAtPosition(pos);
-        int data = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
-        String media = cursor.getString(data);
-        ContentResolver contentResolver = applicationContext.getContentResolver();
-
-        int songTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-        int songArtist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-        int songAlbum = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
-
-        title = cursor.getString(songTitle);
-        artist = cursor.getString(songArtist);
-        album = cursor.getString(songAlbum);
-
-        MainActivity.titleView.setText(title);
-        MainActivity.artistView.setText(artist);
-
-        //region [get album art]
-        album_id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-        getArtistImage(album_id);
-
-        Bitmap artwork = null;
-        try {
-            Uri sArtworkUri = Uri
-                    .parse("content://media/external/audio/albumart");
-            Uri uri = ContentUris.withAppendedId(sArtworkUri,
-                    Long.valueOf(album_id));
-            InputStream in = contentResolver.openInputStream(uri);
-            artwork = BitmapFactory.decodeStream(in);
-
-            MainActivity.albumPicMain.setImageBitmap(artwork);
-        } catch (Exception e) {
-            Log.e("Exception", e.toString());
-        }
-        //endregion
-
-        //region [send to service] //hier wordt service gestart
-        Intent playerIntent = new Intent(getActivity(), MyService.class);
-        playerIntent.putExtra("media", media);
-        getActivity().startService(playerIntent);
-        //endregion
-    }
-
-    private Bitmap getArtistImage(String albumid) {
-        Bitmap artwork = null;
-        ContentResolver contentResolver = applicationContext.getContentResolver();
-        try {
-            Uri sArtworkUri = Uri
-                    .parse("content://media/external/audio/albumart");
-            Uri uri = ContentUris.withAppendedId(sArtworkUri,
-                    Long.valueOf(albumid));
-            InputStream in = contentResolver.openInputStream(uri);
-            artwork = BitmapFactory.decodeStream(in);
-
-            MainActivity.albumPicMain.setImageBitmap(artwork);
-        } catch (Exception e) {
-            Log.e("Exception", e.toString());
-        }
-        return artwork;
-    }
-    //endregion
 
     //region [stuff]
     private void addData(){

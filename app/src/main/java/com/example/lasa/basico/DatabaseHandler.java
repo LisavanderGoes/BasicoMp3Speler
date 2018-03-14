@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,5 +151,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + table);
     }
+
+    public Cursor getTables(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'",
+                null);
+
+        if (cursor.moveToFirst()) {
+            while ( !cursor.isAfterLast() ) {
+                String table = cursor.getString(0);
+                    Log.d("TABLES: : ", table);
+                    cursor.moveToNext();
+
+            }
+        }
+
+        return cursor;
+    }
+
 
 }

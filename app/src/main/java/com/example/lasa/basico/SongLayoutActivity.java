@@ -30,7 +30,6 @@ import java.io.InputStream;
 
 public class SongLayoutActivity extends AppCompatActivity {
     ObObject obObject = new ObObject();
-    DataBase db = new DataBase(this);
 
     //playlist
     //dropdown
@@ -341,8 +340,6 @@ public class SongLayoutActivity extends AppCompatActivity {
     }
 
     public void playlistBtnClick (View view){
-        String table = "table";
-        db.insertSong(table, data);
     }
 
     public void wachtrijBtnClick (View view){

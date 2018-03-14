@@ -1,18 +1,15 @@
 package com.example.lasa.basico;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.List;
 
-public class DataBase {
-    Context context;
+public class DataBase extends AppCompatActivity {
 
-    public DataBase(Context context){
-        this.context=context;
-    }
-
-    DatabaseHandler db = new DatabaseHandler(context);
+    DatabaseHandler db = new DatabaseHandler(this);
 
 
     public void createTable(String table){
@@ -80,6 +77,14 @@ public class DataBase {
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Deleting..");
         db.deleteTable(new ObSong(1,"path", table));
+    }
+
+    public void getTables(){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Reading: ", "Reading all tables..");
+        //Cursor cursor = db.getTables();
+
+
     }
 
 }

@@ -38,7 +38,7 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Songs";
             case 1:
-                return "Playlist";
+                return "ObPlaylist";
 
         }
     return null;

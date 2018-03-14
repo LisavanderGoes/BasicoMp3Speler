@@ -6,7 +6,7 @@
     tools:context="com.example.lasa.basico.infoPlaylistFragment">
 
     <ListView
-        android:id="@+id/ListView"
+        android:id="@+id/PlayListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
