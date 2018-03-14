@@ -56,6 +56,7 @@ public class infoPlaylistFragment extends Fragment {
     boolean mBound = false;
 
     //endregion
+    //jhefhuw
 
 
     public infoPlaylistFragment() {
