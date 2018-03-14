@@ -1,0 +1,23 @@
+
+1213
+
+bound is dat notification dingie
+fix issue met service on background doet heel lang over
+
+for contxt typ this
+
+NOTE: kijk naar uri voor media = audio.media
+		uri voor albums = audio.albums
+
+
+
+zet location path in database (mebay)
+
+load list before showing
+
+
+database:
+- playlist
+- wachtrij
+- obSong?
+- rest van tabs

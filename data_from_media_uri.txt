@@ -1,0 +1,14 @@
+Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+cursor.getString(....)
+
+1: path
+2: title
+3: nummer??
+4: audio/mpeg
+5: nog meer nmmrs???
+6: 0 (bij alles)
+7: 
+8: 
+9: gare dingen...???
+
+

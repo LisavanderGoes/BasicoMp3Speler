@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
+
+    <ImageView
+        android:id="@+id/albumpicmain"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="15dp"
+        android:contentDescription="image"/>
+
+    <TextView
+        android:id="@+id/titlemain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/albumpicmain"
+        android:layout_centerHorizontal="true"
+        android:maxLines="1"
+        android:text="title"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/artistmain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlemain"
+        android:layout_marginTop="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_toStartOf="@+id/streep"
+        android:text="artist"
+        android:maxLines="1"
+         />
+
+    <TextView
+        android:id="@+id/streep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlemain"
+        android:layout_marginTop="11dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="|" />
+
+    <TextView
+        android:id="@+id/albummain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlemain"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_toEndOf="@+id/streep"
+        android:text="album"
+        android:maxLines="1"
+         />
+
+
+    <TextView
+        android:id="@+id/timelast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/albummain"
+        android:layout_marginTop="11dp"
+        android:layout_alignRight="@+id/doorspoelen"
+        android:text="time"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/timecurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/timelast"
+        android:layout_alignBottom="@+id/timelast"
+        android:layout_alignLeft="@+id/doorspoelen"
+        android:text="time"
+        android:maxLines="1"/>
+
+    <SeekBar
+        android:id="@+id/doorspoelen"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/artistmain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp" />
+
+    <ImageButton
+        android:id="@+id/blacklistknop"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/backmainknop"
+        android:layout_below="@+id/doorspoelen"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:contentDescription="blacklist"
+        android:scaleType="fitCenter"
+        android:src="@drawable/blacklist" />
+
+    <ImageButton
+        android:id="@+id/favoriteknop"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/nextmainknop"
+        android:layout_alignTop="@+id/blacklistknop"
+        android:background="@null"
+        android:contentDescription="favorite"
+        android:scaleType="fitCenter"
+        android:src="@drawable/favorite" />
+
+    <ImageButton
+        android:id="@+id/wachtrijknop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/blacklistknop"
+        android:background="@null"
+        android:contentDescription="wachtrij"
+        android:scaleType="fitCenter"
+        android:src="@drawable/wachtrij" />
+
+    <ImageButton
+        android:id="@+id/muteknop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/favoriteknop"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/speaker"
+        android:contentDescription="mute"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:onClick="muteBtnClick"/>
+
+    <ImageButton
+        android:id="@+id/playmainknop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        app:srcCompat="@drawable/play"
+        android:contentDescription="play"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:onClick="playBtnClick"/>
+
+    <ImageButton
+        android:id="@+id/nextmainknop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/playmainknop"
+        android:layout_toEndOf="@+id/playmainknop"
+        app:srcCompat="@drawable/next"
+
+        android:contentDescription="next"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:onClick="nextBtnClick"/>
+
+    <ImageButton
+        android:id="@+id/backmainknop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/playmainknop"
+        android:layout_toStartOf="@+id/playmainknop"
+        app:srcCompat="@drawable/back"
+
+        android:contentDescription="back"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:onClick="backBtnClick"/>
+
+    <ImageButton
+        android:id="@+id/repeatmainknop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/backmainknop"
+        android:src="@drawable/repeat"
+        android:contentDescription="repeat"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:onClick="repeatBtnClick"/>
+
+    <ImageButton
+        android:id="@+id/shuffleknop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/backmainknop"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/shuffle"
+        android:contentDescription="shuffle"
+        android:scaleType="fitCenter"
+        android:background="@null" />
+
+
+</RelativeLayout>

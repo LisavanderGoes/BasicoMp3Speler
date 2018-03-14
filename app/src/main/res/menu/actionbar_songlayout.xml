@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_addplaylist"
+        android:icon="@drawable/playlist"
+        android:title="favorite"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_stuff"
+        android:title="Stuff"
+        app:showAsAction="never"/>
+</menu>
