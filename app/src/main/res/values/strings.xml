@@ -4,7 +4,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="tab_text_1">Songs</string>
-    <string name="tab_text_2">Playlist</string>
+    <string name="tab_text_1">Favorite</string>
+    <string name="tab_text_2">Songs</string>
     <string name="action_settings">Settings</string>
+    <string name="tab_text_3">Playlist</string>
+    <string name="tab_text_4">Album</string>
+    <string name="tab_text_5">Genre</string>
+    <string name="tab_text_6">Artist</string>
+    <string name="tab_text_7">Blacklist</string>
+    <string name="tab_text_8">Map</string>
 </resources>

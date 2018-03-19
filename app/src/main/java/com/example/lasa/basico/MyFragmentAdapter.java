@@ -17,11 +17,29 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                infoAllSongsFragment tab1 = new infoAllSongsFragment();
+                infoFavoriteFragment tab1 = new infoFavoriteFragment();
                 return tab1;
             case 1:
-                infoPlaylistFragment tab2 = new infoPlaylistFragment();
+                infoAllSongsFragment tab2 = new infoAllSongsFragment();
                 return tab2;
+            case 2:
+                infoPlaylistFragment tab3 = new infoPlaylistFragment();
+                return tab3;
+            case 3:
+                infoAlbumFragment tab4 = new infoAlbumFragment();
+                return tab4;
+            case 4:
+                infoGenreFragment tab5 = new infoGenreFragment();
+                return tab5;
+            case 5:
+                infoArtistFragment tab6 = new infoArtistFragment();
+                return tab6;
+            case 6:
+                infoBlackListFragment tab7 = new infoBlackListFragment();
+                return tab7;
+            case 7:
+                infoMapFragment tab8 = new infoMapFragment();
+                return tab8;
             default:
                 return null;
         }
@@ -29,7 +47,7 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 8;
     }
 
     @Override

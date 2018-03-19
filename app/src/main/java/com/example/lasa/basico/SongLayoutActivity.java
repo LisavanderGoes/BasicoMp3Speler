@@ -30,6 +30,7 @@ import java.io.InputStream;
 
 public class SongLayoutActivity extends AppCompatActivity {
     ObObject obObject = new ObObject();
+    DatabaseHandler db = new DatabaseHandler(this);
 
     //playlist
     //dropdown
@@ -50,6 +51,7 @@ public class SongLayoutActivity extends AppCompatActivity {
     static ImageButton playBtn;
     ImageButton repeat;
     ImageButton muteBtn;
+    ImageButton favBtn;
     SeekBar doorspoelen;
     TextView timecurrent;
     TextView timelast;
@@ -64,6 +66,7 @@ public class SongLayoutActivity extends AppCompatActivity {
     boolean mBound = false;
     public MediaPlayer mediaPlayer;
     String data;
+    boolean clicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class SongLayoutActivity extends AppCompatActivity {
         albummain = (TextView) findViewById(R.id.albummain);
         artistmain = (TextView) findViewById(R.id.artistmain);
         muteBtn = (ImageButton) findViewById(R.id.muteknop);
+        favBtn = (ImageButton) findViewById(R.id.favoriteknop);
 
         //Toast.makeText(SongLayoutActivity.this, obObject.title, Toast.LENGTH_SHORT).show();
 
@@ -337,6 +341,13 @@ public class SongLayoutActivity extends AppCompatActivity {
 
     public void favoriteBtnClick (View view){
 
+        if(!clicked) {
+            insertSong("Favorite", data);
+            clicked = true;
+            favBtn.setImageResource(R.drawable.favoritered);
+        }else if (clicked){
+
+        }
     }
 
     public void playlistBtnClick (View view){
@@ -380,6 +391,12 @@ public class SongLayoutActivity extends AppCompatActivity {
 
                 }
         );
+    }
+
+    public void insertSong(String table, String path){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Insert:", "Inserting...");
+        db.addSong(new ObSong(1, path, table));
     }
 
 }

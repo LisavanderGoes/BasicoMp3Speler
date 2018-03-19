@@ -21,3 +21,4 @@ database:
 - wachtrij
 - obSong?
 - rest van tabs
+- maak playlist met alle genres erin/ artist/ albums

@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity  {
         mViewPager = (ViewPager) findViewById(R.id.info);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));

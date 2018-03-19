@@ -60,18 +60,6 @@ public class PlashScreen extends AppCompatActivity {
         Log.d("ObSong: : ", path.getPath());
     } //werkt nie
 
-    public void readingSongs(String table){
-        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
-        Log.d("Reading: ", "Reading all songs..");
-        List<ObSong> songs2 = db.getAllSongs(new ObSong(1,"path", table));
-
-        for (ObSong obSong : songs2) {
-            String log = "Id: " + obSong.getId() + " ,Name: " + obSong.getPath() + " ,Table: " + obSong.getTable();
-            // Writing shops to log
-            Log.d("ObSong: : ", log);
-        }
-    }
-
     public void songCount(String table){
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Getting song count..");

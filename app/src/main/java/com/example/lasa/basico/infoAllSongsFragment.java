@@ -62,8 +62,8 @@ public class infoAllSongsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_info_all_songs, container, false);
-        listview = (ListView) view.findViewById(R.id.ListView);
+        View view = inflater.inflate(R.layout.fragment_info_playlist, container, false);
+        listview = (ListView) view.findViewById(R.id.PlayListView);
         titleView = (TextView) view.findViewById(R.id.titlemain);
         artistView = (TextView) view.findViewById(R.id.artistmain);
 

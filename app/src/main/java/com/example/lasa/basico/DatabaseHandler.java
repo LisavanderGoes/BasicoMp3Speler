@@ -82,7 +82,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //all songs
-    public List<ObSong> getAllSongs(ObSong som){
+    public Cursor getAllSongs(ObSong som){
         List<ObSong> obSongList = new ArrayList<ObSong>();
         String table = som.getTable();
         //Select all query
@@ -101,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         //return list
-        return obSongList;
+        return cursor;
     }
 
     //get obSong count

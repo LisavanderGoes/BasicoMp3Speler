@@ -1,12 +1,11 @@
 package com.example.lasa.basico;
 
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +15,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 
-public class infoPlaylistFragment extends Fragment {
+public class infoMapFragment extends Fragment {
     Context applicationContext = MainActivity.getContextOfApplication();
     DatabaseHandler db = new DatabaseHandler(applicationContext);
-    ObPlaylist obPlaylist = new ObPlaylist();
 
     ListView listview;
     TextView titleView;
@@ -34,7 +28,7 @@ public class infoPlaylistFragment extends Fragment {
     MyPlaylistAdapter mAdapter;
 
 
-    public infoPlaylistFragment() {
+    public infoMapFragment() {
         // Required empty public constructor
     }
 
@@ -47,7 +41,6 @@ public class infoPlaylistFragment extends Fragment {
         listview = (ListView) view.findViewById(R.id.PlayListView);
 
         ArrayList<ObPlaylist> list = new ArrayList<>();
-        ArrayList<ObPlaylist> list2 = new ArrayList<>();
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Reading all tables..");
         Log.d("Reading: ", "DE GOEDE!!!!!!!!!!!!!");
@@ -59,6 +52,7 @@ public class infoPlaylistFragment extends Fragment {
                 Log.d("TABLES: : ", table);
                     list.add(new ObPlaylist(table));
                     cursor.moveToNext();
+
             }
         }
 
