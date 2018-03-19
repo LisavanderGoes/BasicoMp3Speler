@@ -53,48 +53,51 @@ public class infoAlbumFragment extends Fragment {
                 null,
                 null);
 
-        ArrayList<ObPlaylist> list = new ArrayList<ObPlaylist>();
-        ArrayList<ObPlaylist> newGenre = new ArrayList<ObPlaylist>();
-        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
-        Log.d("Reading: ", "Reading all tables..");
-        Log.d("Reading: ", "DE GOEDE!!!!!!!!!!!!!");
         Cursor cursor = songCursor;
+        ArrayList<String> test = new ArrayList<>();
+        String table = "Album";
+
+        //deleteTable(table);
 
         if (cursor.moveToFirst()) {
 
+            createTable(table);
+
             while(!cursor.isAfterLast()){
 
-                String table = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-                list.add(new ObPlaylist(table));
+                String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+                test.add(album);
 
-                for (int g = 0; g < newGenre.size(); g++) {
-                    String gen = Integer.toString(g);
-                    if (gen == table)
-                        newGenre.add(new ObPlaylist(gen));
+                try {
+                    insertData(table, album);
+                } catch (Exception e){
+
                 }
 
-
-            /*//Set variable
-
-            //get all song.genres
-            for (int i = 0; !cursor.isAfterLast(); i++) {
-                String table = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-                oldGenre.add(table);
-
-                //foreach
-                for (int g = 0; g < newGenre.size(); g++) {
-                    if (g != i)
-                        //String t = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-                        Log.d("Reading: ", Integer.toString(g));*/
-
                 cursor.moveToNext();
+            }
+        }
+
+        ArrayList<ObPlaylist> list = new ArrayList<>();
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Reading: ", "Reading all tables..");
+        Log.d("Reading: ", "DE GOEDE!!!!!!!!!!!!!");
+        Cursor cursor2 = db.getAllSongs(new ObSong(1,"path", table));
+
+        if (cursor2.moveToFirst()) {
+            while ( !cursor2.isAfterLast() ) {
+                String t = cursor2.getString(1);
+                //Log.d("TABLES: : ", t);
+                list.add(new ObPlaylist(t));
+                cursor2.moveToNext();
+
             }
         }
 
 
 
 
-        mAdapter = new MyPlaylistAdapter(applicationContext, newGenre);
+        mAdapter = new MyPlaylistAdapter(applicationContext, list);
         listview.setAdapter(mAdapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,6 +109,25 @@ public class infoAlbumFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
+    public void createTable(String table){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Insert:", "Creating...");
+        db.addDataSingle(new ObSong(1,"path", table));
+    }
+
+    public void insertData(String table, String album){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Insert:", "Inserting...");
+        db.addData(new ObSong(1, album, table));
+    }
+
+    public void deleteTable(String table){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Reading: ", "Deleting..");
+        db.deleteTable(new ObSong(1,"path", table));
+    }
+
 }
 
 

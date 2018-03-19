@@ -20,6 +20,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "playlists";
     public static final String KEY_ID = "ID";
     public static final String PATH = "SONG_PATH";
+    public static final String DATA = "data";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -167,6 +168,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         return cursor;
+    }
+
+    public void addDataSingle(ObSong obSong){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String table = obSong.getTable();
+        String genre = obSong.getPath();
+
+        String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + table + "(" +
+                KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                DATA + " TEXT," +
+                "UNIQUE("+DATA +")" +
+                ");";
+        db.execSQL(CREATE_TABLE);
+
+        db.close(); //close db
+    }
+
+    public void addData(ObSong obSong){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String table = obSong.getTable();
+        String data = obSong.getPath();
+
+        Log.d("ObSong: : ", data);
+
+        ContentValues values = new ContentValues();
+        values.put(DATA, data); //path
+
+        db.insertWithOnConflict(table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+
+
+        //String INSERT_DATA = "INSERT OR IGNORE INTO Album(data) VALUES("+data+")";
+
+        //insert Row
+        //db.execSQL(INSERT_DATA);
+        db.close(); //close db
     }
 
 
