@@ -37,9 +37,6 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
             case 6:
                 infoBlackListFragment tab7 = new infoBlackListFragment();
                 return tab7;
-            case 7:
-                infoMapFragment tab8 = new infoMapFragment();
-                return tab8;
             default:
                 return null;
         }
@@ -47,7 +44,7 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 8;
+        return 7;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.lasa.basico;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -65,21 +66,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //one obSong
-    public ObSong getSong(ObSong obSong) {
+    public Cursor getSong(ObSong obSong) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String table = obSong.getTable();
         int id = obSong.getId();
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
+        /*Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
                         PATH }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
+
         ObSong contact = new ObSong(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), table);
+                cursor.getString(1), table);*/
+
+        String query = "SELECT " + DATA +
+                " FROM " + table +
+                " WHERE " + KEY_ID + " = ?;";
+
+        Cursor cursor = db.rawQuery(query, new String[] { String.valueOf(id) });
+
         // return shop
-        return contact;
+        return cursor;
+
+
+    }
+
+    public Cursor getData(ObSong som){
+        List<ObSong> obSongList = new ArrayList<ObSong>();
+        String table = som.getTable();
+        int id = som.getId();
+        //Select all query
+        String selectQuery = "SELECT "+DATA+" FROM " + table + " WHERE " + KEY_ID + " = ?;";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        //looping through all rows and adding to list
+        if(cursor.moveToFirst()){
+            do{
+                ObSong obSong = new ObSong();
+                obSong.setID(Integer.parseInt(cursor.getString(id)));
+                obSong.setTable(table);
+                // adding
+                obSongList.add(obSong);
+            }while (cursor.moveToNext());
+        }
+        //return list
+        return cursor;
     }
 
     //all songs

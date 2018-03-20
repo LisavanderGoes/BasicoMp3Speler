@@ -27,4 +27,4 @@
         android:textIsSelectable="false"
         android:textSize="18sp" />
 
-        </RelativeLayout>
+</RelativeLayout>

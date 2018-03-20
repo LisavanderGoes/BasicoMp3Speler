@@ -18,5 +18,6 @@ import java.util.ArrayList;
 
 public class ObObject {
     Uri songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+    Uri genreUri = android.provider.MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI;
     ArrayList<String> arrayList;
 }

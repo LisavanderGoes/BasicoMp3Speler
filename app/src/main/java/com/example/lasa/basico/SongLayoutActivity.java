@@ -29,7 +29,6 @@ import java.io.InputStream;
 
 
 public class SongLayoutActivity extends AppCompatActivity {
-    ObObject obObject = new ObObject();
     DatabaseHandler db = new DatabaseHandler(this);
 
     //playlist
@@ -52,10 +51,9 @@ public class SongLayoutActivity extends AppCompatActivity {
     ImageButton repeat;
     ImageButton muteBtn;
     ImageButton favBtn;
-    SeekBar doorspoelen;
+    static SeekBar doorspoelen;
     TextView timecurrent;
     TextView timelast;
-    MediaPlayer mp;
     int totalTime;
     ImageView albumpicmain;
     public TextView titlemain;
@@ -85,6 +83,7 @@ public class SongLayoutActivity extends AppCompatActivity {
         artistmain = (TextView) findViewById(R.id.artistmain);
         muteBtn = (ImageButton) findViewById(R.id.muteknop);
         favBtn = (ImageButton) findViewById(R.id.favoriteknop);
+        doorspoelen = (SeekBar) findViewById(R.id.doorspoelen);
 
         //Toast.makeText(SongLayoutActivity.this, obObject.title, Toast.LENGTH_SHORT).show();
 
@@ -117,35 +116,6 @@ public class SongLayoutActivity extends AppCompatActivity {
 
             albumpicmain.setImageBitmap(artwork);
         }
-
-
-        //region [stuff dat niet werkt]
-        /* werkt niet!!!!!!!!!
-
-        try {
-            MediaMetadataRetriever metaRetriver = new MediaMetadataRetriever();
-            metaRetriver.setDataSource(R.raw.music);
-            try {
-                byte[] art = metaRetriver.getEmbeddedPicture();
-                Bitmap songImage = BitmapFactory
-                        .decodeByteArray(art, 0, art.length);
-                albumpicmain.setImageBitmap(songImage);
-                albummain.setText(metaRetriver
-                        .extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM));
-                artistmain.setText(metaRetriver
-                        .extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST));
-                titlemain.setText(metaRetriver
-                        .extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE));
-            } catch (Exception e) {
-                albumpicmain.setBackgroundColor(Color.GRAY);
-                albummain.setText("");
-                artistmain.setText("");
-                titlemain.setText("");
-            }
-        }catch (Exception e){
-
-        }*/
-        //endregion
 
     }
 
@@ -198,7 +168,7 @@ public class SongLayoutActivity extends AppCompatActivity {
                     while (mediaPlayer != null) {
                         try {
                             Message msg = new Message();
-                            msg.what = mediaPlayer.getCurrentPosition();
+                            msg.what = mediaPlayer.getCurrentPosition(); //FIX DIT MISS ZET DIT ALLEMAAL IN SERVICE EN SEND TO HIER NET ALS ET DIE MAIN IN PLAY BTN
                             handler.sendMessage(msg);
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {}

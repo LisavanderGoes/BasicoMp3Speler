@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -135,6 +136,15 @@ public class MainActivity extends AppCompatActivity  {
             intent.putExtra("album_id", album_id);
             intent.putExtra("data", data);
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+    }
+
+    public void startalbumactivity(int data){
+        Intent intent = new Intent(getApplicationContext(), AlbumActivity.class);
+            int d = data;
+            intent.putExtra("data", d);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }

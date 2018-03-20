@@ -15,12 +15,19 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -53,6 +60,10 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
     String sdata;
     private int currentSongIndex;
     ListView listView;
+    SeekBar doorspoelen;
+    TextView timecurrent;
+    TextView timelast;
+    int totalTime;
 
     //test
     private final Random mGenerator = new Random();
@@ -127,6 +138,13 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
             //activity.startsonglayout();
         }*/
 
+        /*nextSong(this);
+        MainActivity activity = MainActivity.instance;
+
+        if (activity != null) {
+            activity.startsonglayout();
+        }*/
+
     }
 
     @Override
@@ -146,7 +164,6 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
 
     @Override
     public void onSeekComplete(MediaPlayer mediaPlayer) {
-
     }
 
     private void initMediaPlayer() {

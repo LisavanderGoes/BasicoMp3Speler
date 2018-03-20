@@ -3,6 +3,7 @@ package com.example.lasa.basico;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class infoAlbumFragment extends Fragment {
     ListView listview;
     TextView titleView;
     TextView artistView;
+    String table = "Album";
 
     MyPlaylistAdapter mAdapter;
 
@@ -53,30 +55,6 @@ public class infoAlbumFragment extends Fragment {
                 null,
                 null);
 
-        Cursor cursor = songCursor;
-        ArrayList<String> test = new ArrayList<>();
-        String table = "Album";
-
-        //deleteTable(table);
-
-        if (cursor.moveToFirst()) {
-
-            createTable(table);
-
-            while(!cursor.isAfterLast()){
-
-                String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-                test.add(album);
-
-                try {
-                    insertData(table, album);
-                } catch (Exception e){
-
-                }
-
-                cursor.moveToNext();
-            }
-        }
 
         ArrayList<ObPlaylist> list = new ArrayList<>();
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
@@ -94,15 +72,15 @@ public class infoAlbumFragment extends Fragment {
             }
         }
 
-
-
-
         mAdapter = new MyPlaylistAdapter(applicationContext, list);
         listview.setAdapter(mAdapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ((MainActivity)getActivity()).startalbumactivity(position);
+
             }
         });
 

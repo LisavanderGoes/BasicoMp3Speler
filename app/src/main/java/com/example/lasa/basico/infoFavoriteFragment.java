@@ -23,10 +23,10 @@ public class infoFavoriteFragment extends Fragment {
     DatabaseHandler db = new DatabaseHandler(applicationContext);
 
     ListView listview;
-    TextView titleView;
-    TextView artistView;
+
 
     MyPlaylistAdapter mAdapter;
+    String table = "Favorite";
 
 
     public infoFavoriteFragment() {
@@ -41,10 +41,8 @@ public class infoFavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info_playlist, container, false);
         listview = (ListView) view.findViewById(R.id.PlayListView);
 
-        String table = "Favorite";
-
+        deleteTable(table);
         createTable(table);
-
 
         ArrayList<ObPlaylist> list = new ArrayList<>();
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
@@ -85,6 +83,12 @@ public class infoFavoriteFragment extends Fragment {
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Insert:", "Inserting...");
         db.addSong(new ObSong(1, path, table));
+    }
+
+    public void deleteTable(String table){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Reading: ", "Deleting..");
+        db.deleteTable(new ObSong(1,"path", table));
     }
 
 }

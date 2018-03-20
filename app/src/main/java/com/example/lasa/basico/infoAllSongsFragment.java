@@ -31,16 +31,10 @@ import java.util.ArrayList;
 public class infoAllSongsFragment extends Fragment {
     ObObject obObject = new ObObject();
     Context applicationContext = MainActivity.getContextOfApplication();
-    xObMethodes methode = new xObMethodes(applicationContext);
     ListView listview;
-    ArrayList<String> arrayList = obObject.arrayList;
     TextView titleView;
     TextView artistView;
-    int i;
     Uri myUri = obObject.songUri;
-    private MyService player;
-    boolean serviceBound = false;
-    private xObItem[] listData;
     MyCursorAdapter cursorAdapter;
 
     //region [play music]
@@ -97,84 +91,5 @@ public class infoAllSongsFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-
-
-
-
-    //region [stuff]
-    private void addData(){
-        xObItem data = null;
-        listData = new xObItem[30];
-        for(int i = 0; i < 30; i ++){
-            data = new xObItem();
-            data.titleMain = "title:" + i;
-            data.artistMain = "artist" + i;
-            listData[i] = data;
-        }
-
-        /*if (!serviceBound) {
-            Intent playerIntent = new Intent(getActivity(), MyService.class);
-            playerIntent.putExtra("media", media);
-            getActivity().startService(playerIntent);
-            getActivity().bindService(playerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
-        } else {
-            //Service is active
-            //Send to service
-        }*/
-
-        // region [old listview prut]
-        /*arrayList = new ArrayList<>();
-        getMusic();
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
-        listview.setAdapter(adapter);*/
-
-        /*addData();
-        xItemAdapter itemAdapter = new xItemAdapter(getContext(), R.layout.item, listData);
-        listview.setAdapter(itemAdapter);*/
-        //endregion
-    }
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            MyService.LocalBinder binder = (MyService.LocalBinder) service;
-            player = binder.getService();
-            serviceBound = true;
-
-            Toast.makeText(applicationContext.getApplicationContext(), "Service Bound", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            serviceBound = false;
-            Toast.makeText(applicationContext.getApplicationContext(), "Service NOT Bound", Toast.LENGTH_SHORT).show();
-
-        }
-    };
-    public void getMusic() {
-        Context applicationContext = MainActivity.getContextOfApplication();
-
-        ContentResolver contentResolver = applicationContext.getContentResolver();
-        Uri songUri = myUri;
-
-
-        Cursor songCursor = contentResolver.query(songUri, null, null, null, null);
-
-        if (songCursor != null && songCursor.moveToFirst()) {
-            int songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-            int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            int songData = songCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
-
-            do {
-                String currentTitle = songCursor.getString(songTitle);
-                String currentArtist = songCursor.getString(songArtist);
-                String currentData = songCursor.getString(songData);
-                arrayList.add(i, currentData);
-                i++;
-            } while (songCursor.moveToNext());
-        }
-        songCursor.close();
-    }
-    //endregion
 
 }

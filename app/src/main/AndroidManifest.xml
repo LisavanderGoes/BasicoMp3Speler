@@ -47,8 +47,8 @@
         <activity
             android:name=".xMain2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".AlbumActivity"></activity>
     </application>
 
 </manifest>

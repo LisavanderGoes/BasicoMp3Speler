@@ -30,13 +30,13 @@ public class DataBase extends AppCompatActivity {
         db.addSong(new ObSong(1, path, table));
     }
 
-    public void readingSong(String table, int id){
+    /*public void readingSong(String table, int id){
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Reading all songs..");
         ObSong path = db.getSong(new ObSong(id, "//path/test1", table));
 
         Log.d("ObSong: : ", path.getPath());
-    } //werkt nie
+    } //werkt nie*/
 
     public void readingSongs(String table){
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");

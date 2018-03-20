@@ -1,8 +1,10 @@
 package com.example.lasa.basico;
 
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,10 +22,12 @@ import java.util.ArrayList;
 public class infoGenreFragment extends Fragment {
     Context applicationContext = MainActivity.getContextOfApplication();
     DatabaseHandler db = new DatabaseHandler(applicationContext);
-
+    ObObject obObject = new ObObject();
+    Uri myUri = obObject.songUri;
     ListView listview;
     TextView titleView;
     TextView artistView;
+    String table = "Genres";
 
     MyPlaylistAdapter mAdapter;
 
@@ -40,18 +44,27 @@ public class infoGenreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info_playlist, container, false);
         listview = (ListView) view.findViewById(R.id.PlayListView);
 
+        ContentResolver contentResolver = applicationContext.getContentResolver();
+        Uri songUri = myUri;
+        Cursor songCursor = contentResolver.query(songUri,
+                null,
+                null,
+                null,
+                null);
+
+
         ArrayList<ObPlaylist> list = new ArrayList<>();
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Reading all tables..");
         Log.d("Reading: ", "DE GOEDE!!!!!!!!!!!!!");
-        Cursor cursor = db.getTables();
+        Cursor cursor2 = db.getAllSongs(new ObSong(1,"path", table));
 
-        if (cursor.moveToFirst()) {
-            while ( !cursor.isAfterLast() ) {
-                String table = cursor.getString(0);
-                Log.d("TABLES: : ", table);
-                    list.add(new ObPlaylist(table));
-                    cursor.moveToNext();
+        if (cursor2.moveToFirst()) {
+            while ( !cursor2.isAfterLast() ) {
+                String t = cursor2.getString(1);
+                //Log.d("TABLES: : ", t);
+                list.add(new ObPlaylist(t));
+                cursor2.moveToNext();
 
             }
         }
@@ -62,11 +75,32 @@ public class infoGenreFragment extends Fragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ((MainActivity)getActivity()).startalbumactivity(position);
+
             }
         });
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public void createTable(String table){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Insert:", "Creating...");
+        db.addDataSingle(new ObSong(1,"path", table));
+    }
+
+    public void insertData(String table, String album){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Insert:", "Inserting...");
+        db.addData(new ObSong(1, album, table));
+    }
+
+    public void deleteTable(String table){
+        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+        Log.d("Reading: ", "Deleting..");
+        db.deleteTable(new ObSong(1,"path", table));
     }
 }
 
