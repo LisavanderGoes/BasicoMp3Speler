@@ -34,18 +34,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity  {
     DatabaseHandler myDb;
-
     ObObject obObject = new ObObject();
-    xObMethodes methode = new xObMethodes(this);
     static ImageButton play;
     static ImageButton next;
     static TextView titleView;
     static TextView artistView;
     static ImageView albumPicMain;
-    private MyService player;
-    boolean serviceBound = false;
     Cursor cursor;
     static MainActivity instance;
     boolean state = false;
@@ -55,15 +53,13 @@ public class MainActivity extends AppCompatActivity  {
     String album;
     String album_id;
     String data;
+    boolean obs;
 
     MyService mService;
     boolean mBound = false;
 
     private MyFragmentAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     @Override
@@ -79,8 +75,6 @@ public class MainActivity extends AppCompatActivity  {
         artistView = (TextView) findViewById(R.id.artistmain);
         albumPicMain = (ImageView) findViewById(R.id.albumpicmain);
         contextOfApplication = getApplicationContext();
-
-        DatabaseHandler db = new DatabaseHandler(this);
 
         isReadStoragePermissionGranted();
 
@@ -135,6 +129,7 @@ public class MainActivity extends AppCompatActivity  {
             intent.putExtra("album", album);
             intent.putExtra("album_id", album_id);
             intent.putExtra("data", data);
+            intent.putExtra("obs", obs);
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
@@ -149,11 +144,27 @@ public class MainActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
-    public void send(int pos, ListView list){
+    public void startgenreactivity(int data){
+        Intent intent = new Intent(getApplicationContext(), GenreActivity.class);
+        int d = data;
+        intent.putExtra("data", d);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+    }
+
+    public ArrayList<ObWachtrij> shuffle(ArrayList<ObWachtrij> wachtrij, ListView list){
+        obs = false;
+        return mService.shuffle(wachtrij, this, list);
+    }
+
+    public void send(int pos, ListView list, ArrayList<ObWachtrij> curSongList, boolean ob){
+        obs = ob;
         ListView listView = list;
         int currentSongIndex = pos;
-        mService.send(currentSongIndex, listView, this);
+        mService.send(currentSongIndex, listView, this, ob);
         state = true;
+        obObject.setWachtrij(curSongList);
     }
 
     public void playBtnClick (View view){
@@ -165,17 +176,15 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     public void nextBtnClick (View view){
-        mService.nextSong(this);
+            mService.nextSong(this, obs);
+
     }
 
     public void backBtnClick (View view){
-        mService.previousSong(this);
-    }
 
-    public void next(){
-        mService.nextSong(this);
-    }
+            mService.previousSong(this, obs);
 
+    }
 
     //region [service connection]
 

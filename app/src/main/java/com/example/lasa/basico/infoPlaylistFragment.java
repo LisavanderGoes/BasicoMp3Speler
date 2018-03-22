@@ -46,7 +46,7 @@ public class infoPlaylistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info_playlist, container, false);
         listview = (ListView) view.findViewById(R.id.PlayListView);
 
-        ArrayList<ObPlaylist> list = new ArrayList<>();
+        /*ArrayList<ObPlaylist> list = new ArrayList<>();
         ArrayList<ObPlaylist> list2 = new ArrayList<>();
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Reading all tables..");
@@ -69,7 +69,7 @@ public class infoPlaylistFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             }
-        });
+        });*/
 
         // Inflate the layout for this fragment
         return view;

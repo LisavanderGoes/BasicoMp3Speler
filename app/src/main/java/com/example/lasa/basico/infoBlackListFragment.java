@@ -25,7 +25,8 @@ public class infoBlackListFragment extends Fragment {
     TextView titleView;
     TextView artistView;
 
-    MyPlaylistAdapter mAdapter;
+    MyWachtrijAdapter mAdapter;
+    ArrayList<ObWachtrij> list = new ArrayList<>();
 
 
     public infoBlackListFragment() {
@@ -45,7 +46,7 @@ public class infoBlackListFragment extends Fragment {
         createTable(table);
 
 
-        ArrayList<ObPlaylist> list = new ArrayList<>();
+/*
         Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Reading all tables..");
         Log.d("Reading: ", "DE GOEDE!!!!!!!!!!!!!");
@@ -55,20 +56,21 @@ public class infoBlackListFragment extends Fragment {
             while ( !cursor.isAfterLast() ) {
                 String t = cursor.getString(1);
                 Log.d("TABLES: : ", t);
-                list.add(new ObPlaylist(t));
+                list.add(new ObWachtrij(null, null, t, null, null));
                 cursor.moveToNext();
 
             }
         }
 
-        mAdapter = new MyPlaylistAdapter(applicationContext, list);
+        mAdapter = new MyWachtrijAdapter(applicationContext, list);
         listview.setAdapter(mAdapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((MainActivity)getActivity()).send(position, listview, list);
             }
-        });
+        });*/
 
         // Inflate the layout for this fragment
         return view;

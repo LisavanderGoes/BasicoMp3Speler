@@ -76,7 +76,7 @@ public class infoGenreFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ((MainActivity)getActivity()).startalbumactivity(position);
+                ((MainActivity)getActivity()).startgenreactivity(position);
 
             }
         });

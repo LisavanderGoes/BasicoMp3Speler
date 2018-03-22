@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
+import java.util.Collections;
 
 
 public class SongLayoutActivity extends AppCompatActivity {
@@ -65,6 +66,7 @@ public class SongLayoutActivity extends AppCompatActivity {
     public MediaPlayer mediaPlayer;
     String data;
     boolean clicked = false;
+    boolean obs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class SongLayoutActivity extends AppCompatActivity {
             String album = passedArg.getString("album");
             String album_id = passedArg.getString("album_id");
             data= passedArg.getString("data");
+            obs= passedArg.getBoolean("obs");
             titlemain.setText(title);
             artistmain.setText(artist);
             albummain.setText(album);
@@ -168,7 +171,7 @@ public class SongLayoutActivity extends AppCompatActivity {
                     while (mediaPlayer != null) {
                         try {
                             Message msg = new Message();
-                            msg.what = mediaPlayer.getCurrentPosition(); //FIX DIT MISS ZET DIT ALLEMAAL IN SERVICE EN SEND TO HIER NET ALS ET DIE MAIN IN PLAY BTN
+                            msg.what = mediaPlayer.getCurrentPosition();
                             handler.sendMessage(msg);
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {}
@@ -276,7 +279,7 @@ public class SongLayoutActivity extends AppCompatActivity {
     }
 
     public void backBtnClick (View view){
-        mService.previousSong(this);
+        mService.previousSong(this, obs);
         MainActivity activity = MainActivity.instance;
 
         if (activity != null) {
@@ -285,7 +288,7 @@ public class SongLayoutActivity extends AppCompatActivity {
     }
 
     public void nextBtnClick (View view){
-        mService.nextSong(this);
+        mService.nextSong(this, obs);
         MainActivity activity = MainActivity.instance;
 
         if (activity != null) {
@@ -305,10 +308,6 @@ public class SongLayoutActivity extends AppCompatActivity {
         }
     }
 
-    public void shuffelBtnClick (View view){
-
-    }
-
     public void favoriteBtnClick (View view){
 
         if(!clicked) {
@@ -320,15 +319,13 @@ public class SongLayoutActivity extends AppCompatActivity {
         }
     }
 
-    public void playlistBtnClick (View view){
-    }
-
-    public void wachtrijBtnClick (View view){
-
-    }
-
     public void blacklistBtnClick (View view){
+        if(!clicked) {
+            insertSong("Blacklist", data);
+            clicked = true;
+        }else if (clicked){
 
+        }
     }
 
     public void testes(String string){

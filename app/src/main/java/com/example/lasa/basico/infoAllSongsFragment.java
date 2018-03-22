@@ -20,12 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class infoAllSongsFragment extends Fragment {
@@ -34,16 +36,16 @@ public class infoAllSongsFragment extends Fragment {
     ListView listview;
     TextView titleView;
     TextView artistView;
-    Uri myUri = obObject.songUri;
-    MyCursorAdapter cursorAdapter;
+    Button shuffleBtn;
+    MySonglistAdapter mAdapter;
+    ArrayList<ObSonglist> songList = obObject.songList;
+
+
 
     //region [play music]
     String title;
     String artist;
     String album;
-    String album_id;
-    private int currentSongIndex = 0;
-    private int nextSongIndex = 0;
     //endregion
 
 
@@ -56,13 +58,13 @@ public class infoAllSongsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_info_playlist, container, false);
-        listview = (ListView) view.findViewById(R.id.PlayListView);
+        View view = inflater.inflate(R.layout.fragment_info_all_songs, container, false);
+        listview = (ListView) view.findViewById(R.id.listView);
         titleView = (TextView) view.findViewById(R.id.titlemain);
         artistView = (TextView) view.findViewById(R.id.artistmain);
+        shuffleBtn = (Button) view.findViewById(R.id.shuffleBtn);
 
-
-    Context applicationContext = MainActivity.getContextOfApplication();
+    /*Context applicationContext = MainActivity.getContextOfApplication();
         ContentResolver contentResolver = applicationContext.getContentResolver();
         Uri songUri = myUri;
         Cursor songCursor = contentResolver.query(songUri,
@@ -75,8 +77,11 @@ public class infoAllSongsFragment extends Fragment {
         cursorAdapter = new MyCursorAdapter(
                 getActivity(),
                 songCursor,
-                0);
-        listview.setAdapter(cursorAdapter);
+                0);*/
+        //listview.setAdapter(cursorAdapter);
+
+        mAdapter = new MySonglistAdapter(applicationContext, songList);
+        listview.setAdapter(mAdapter);
 
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,9 +89,20 @@ public class infoAllSongsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Context applicationContext = MainActivity.getContextOfApplication();
                 //Toast.makeText(applicationContext.getApplicationContext(),"Click ListItem Number " + position, Toast.LENGTH_LONG).show();
-                ((MainActivity)getActivity()).send(position, listview);
+                //wachtrij = songList;
+                ((MainActivity)getActivity()).send(position, listview, PlashScreen.wachtrij, true);
+
+
             }
         });
+
+        /*shuffleBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //wachtrij = songList;
+                ((MainActivity)getActivity()).shuffle(songList);
+            }
+        });*/
 
         // Inflate the layout for this fragment
         return view;

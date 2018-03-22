@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class MyService extends Service implements MediaPlayer.OnCompletionListener,
@@ -41,6 +43,7 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         AudioManager.OnAudioFocusChangeListener  {
 
     public MediaPlayer mediaPlayer = new MediaPlayer();
+    ObObject obObject = new ObObject();
     //path to the audio file
     private String mediaFile;
     //state of mp
@@ -60,10 +63,10 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
     String sdata;
     private int currentSongIndex;
     ListView listView;
-    SeekBar doorspoelen;
-    TextView timecurrent;
-    TextView timelast;
-    int totalTime;
+
+    ArrayList<ObWachtrij> wachtrij = obObject.wachtrij;
+
+
 
     //test
     private final Random mGenerator = new Random();
@@ -289,29 +292,121 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         ismute = true;
     }
 
-    public void send(int pos, ListView list, Context context){
+    public ArrayList<ObWachtrij> shuffle( ArrayList<ObWachtrij> curSongList, Context context, ListView list) {
+        listView = list;
+        wachtrij = curSongList;
+        Collections.shuffle(wachtrij);
+        ObWachtrij curItem = wachtrij.get(0);
+        currentSongIndex = 0;
+        Log.d("Reading: ", curItem.getTitle());
+        ContentResolver contentResolver = context.getContentResolver();
+
+        String media = curItem.getPath();
+        Intent playerIntent = new Intent(context, MyService.class);
+        playerIntent.putExtra("media", media);
+        context.startService(playerIntent);
+
+        title = curItem.getTitle();
+        artist = curItem.getArtist();
+        album = curItem.getAlbum();
+        album_id = curItem.getId();
+
+        MainActivity.titleView.setText(title);
+        MainActivity.artistView.setText(artist);
+
+        //region [get album art]
+        getArtistImage(album_id, context);
+
+        Bitmap artwork = null;
+        try {
+            Uri sArtworkUri = Uri
+                    .parse("content://media/external/audio/albumart");
+            Uri uri = ContentUris.withAppendedId(sArtworkUri,
+                    Long.valueOf(album_id));
+            InputStream in = contentResolver.openInputStream(uri);
+            artwork = BitmapFactory.decodeStream(in);
+
+            MainActivity.albumPicMain.setImageBitmap(artwork);
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
+        }
+        return wachtrij;
+    }
+
+    public void send(int pos, ListView list, Context context, boolean obs){
         listView = list;
         currentSongIndex = pos;
-        playAudio(pos, context);
+        if(obs) {
+            playAudio(pos, context);
+        }else if (!obs) {
+            playAudio2(pos, context);
+        }
     }
 
-    public void nextSong(Context context){
+    public void nextSong(Context context, boolean obs){
         int nextSongIndex = currentSongIndex + 1;
         currentSongIndex = nextSongIndex;
-        playAudio(currentSongIndex, context);
+        if(obs) {
+            playAudio(currentSongIndex, context);
+        }else if (!obs){
+            playAudio2(currentSongIndex, context);
+
+        }
     }
 
-    public void previousSong(Context context){
+    public void previousSong(Context context, boolean obs){
         int nextSongIndex = currentSongIndex - 1;
         currentSongIndex = nextSongIndex;
-        playAudio(currentSongIndex, context);
+        if(obs) {
+            playAudio(currentSongIndex, context);
+        }else if (!obs){
+            playAudio2(currentSongIndex, context);
+
+        }
     }
 
     public void playAudio(int pos, Context context) {
-        currentSongIndex = pos;
-        Cursor cursor = (Cursor) listView.getItemAtPosition(pos);
-        int data = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+        ObSonglist curItem = (ObSonglist) listView.getItemAtPosition(pos);
+        String media = curItem.getPath();
+        Toast.makeText(context.getApplicationContext(), media, Toast.LENGTH_LONG).show();
+
+        ContentResolver contentResolver = context.getContentResolver();
+
+        Intent playerIntent = new Intent(context, MyService.class);
+        playerIntent.putExtra("media", media);
+        context.startService(playerIntent);
+
+        title = curItem.getTitle();
+        artist = curItem.getArtist();
+        album = curItem.getAlbum();
+        album_id = curItem.getId();
+
+        MainActivity.titleView.setText(title);
+        MainActivity.artistView.setText(artist);
+
+        //region [get album art]
+        getArtistImage(album_id, context);
+
+        Bitmap artwork = null;
+        try {
+            Uri sArtworkUri = Uri
+                    .parse("content://media/external/audio/albumart");
+            Uri uri = ContentUris.withAppendedId(sArtworkUri,
+                    Long.valueOf(album_id));
+            InputStream in = contentResolver.openInputStream(uri);
+            artwork = BitmapFactory.decodeStream(in);
+
+            MainActivity.albumPicMain.setImageBitmap(artwork);
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
+        }
+        //endregion
+
+        //region [stuff]
+        /*int data = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
         String media = cursor.getString(data);
+        Toast.makeText(context.getApplicationContext(),media, Toast.LENGTH_LONG).show();
+
         ContentResolver contentResolver = context.getContentResolver();
 
         int songTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
@@ -349,7 +444,90 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         //region [send to service]
         Intent playerIntent = new Intent(context, MyService.class);
         playerIntent.putExtra("media", media);
+        context.startService(playerIntent);*/
+        //endregion
+    }
+
+    public void playAudio2(int pos, Context context) {
+        ObWachtrij curItem = (ObWachtrij) listView.getItemAtPosition(pos);
+        String media = curItem.getPath();
+        Toast.makeText(context.getApplicationContext(), media, Toast.LENGTH_LONG).show();
+
+        ContentResolver contentResolver = context.getContentResolver();
+
+        Intent playerIntent = new Intent(context, MyService.class);
+        playerIntent.putExtra("media", media);
         context.startService(playerIntent);
+
+        title = curItem.getTitle();
+        artist = curItem.getArtist();
+        album = curItem.getAlbum();
+        album_id = curItem.getId();
+
+        MainActivity.titleView.setText(title);
+        MainActivity.artistView.setText(artist);
+
+        //region [get album art]
+        getArtistImage(album_id, context);
+
+        Bitmap artwork = null;
+        try {
+            Uri sArtworkUri = Uri
+                    .parse("content://media/external/audio/albumart");
+            Uri uri = ContentUris.withAppendedId(sArtworkUri,
+                    Long.valueOf(album_id));
+            InputStream in = contentResolver.openInputStream(uri);
+            artwork = BitmapFactory.decodeStream(in);
+
+            MainActivity.albumPicMain.setImageBitmap(artwork);
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
+        }
+        //endregion
+
+        //region [stuff]
+        /*int data = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+        String media = cursor.getString(data);
+        Toast.makeText(context.getApplicationContext(),media, Toast.LENGTH_LONG).show();
+
+        ContentResolver contentResolver = context.getContentResolver();
+
+        int songTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
+        int songArtist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+        int songAlbum = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
+        int songData = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+
+        title = cursor.getString(songTitle);
+        artist = cursor.getString(songArtist);
+        album = cursor.getString(songAlbum);
+        sdata = cursor.getString(songData);
+
+        MainActivity.titleView.setText(title);
+        MainActivity.artistView.setText(artist);
+
+        //region [get album art]
+        album_id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+        getArtistImage(album_id, context);
+
+        Bitmap artwork = null;
+        try {
+            Uri sArtworkUri = Uri
+                    .parse("content://media/external/audio/albumart");
+            Uri uri = ContentUris.withAppendedId(sArtworkUri,
+                    Long.valueOf(album_id));
+            InputStream in = contentResolver.openInputStream(uri);
+            artwork = BitmapFactory.decodeStream(in);
+
+            MainActivity.albumPicMain.setImageBitmap(artwork);
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
+        }
+        //endregion
+
+        //region [send to service]
+        Intent playerIntent = new Intent(context, MyService.class);
+        playerIntent.putExtra("media", media);
+        context.startService(playerIntent);*/
         //endregion
     }
 
@@ -375,6 +553,7 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         int currentPosition = mediaPlayer.getCurrentPosition();
     }
 
+    //region [stuff]
     //Als oortjes eruit
     private BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
@@ -389,6 +568,8 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         IntentFilter intentFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
         registerReceiver(becomingNoisyReceiver, intentFilter);
     }
+
+    //endregion
 
     public String getTitle(){
         return title;

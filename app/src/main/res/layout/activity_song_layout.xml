@@ -100,7 +100,8 @@
         android:background="@null"
         android:contentDescription="blacklist"
         android:scaleType="fitCenter"
-        android:src="@drawable/blacklist" />
+        android:src="@drawable/blacklist"
+        android:onClick="blacklistBtnClick"/>
 
     <ImageButton
         android:id="@+id/favoriteknop"
@@ -113,17 +114,6 @@
         android:scaleType="fitCenter"
         android:src="@drawable/favorite"
         android:onClick="favoriteBtnClick"/>
-
-    <ImageButton
-        android:id="@+id/wachtrijknop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/blacklistknop"
-        android:background="@null"
-        android:contentDescription="wachtrij"
-        android:scaleType="fitCenter"
-        android:src="@drawable/wachtrij" />
 
     <ImageButton
         android:id="@+id/muteknop"
@@ -182,24 +172,13 @@
         android:id="@+id/repeatmainknop"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/backmainknop"
-        android:src="@drawable/repeat"
-        android:contentDescription="repeat"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:onClick="repeatBtnClick"/>
-
-    <ImageButton
-        android:id="@+id/shuffleknop"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/backmainknop"
         android:layout_alignParentStart="true"
-        android:src="@drawable/shuffle"
-        android:contentDescription="shuffle"
+        android:layout_alignTop="@+id/blacklistknop"
+        android:background="@null"
+        android:contentDescription="repeat"
+        android:onClick="repeatBtnClick"
         android:scaleType="fitCenter"
-        android:background="@null" />
+        android:src="@drawable/repeat" />
 
 
 </RelativeLayout>

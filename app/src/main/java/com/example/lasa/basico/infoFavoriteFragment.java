@@ -1,8 +1,12 @@
 package com.example.lasa.basico;
 
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,19 +18,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class infoFavoriteFragment extends Fragment {
-    Context applicationContext = MainActivity.getContextOfApplication();
+public class infoFavoriteFragment extends Fragment {Context applicationContext = MainActivity.getContextOfApplication();
     DatabaseHandler db = new DatabaseHandler(applicationContext);
 
     ListView listview;
+    TextView titleView;
+    TextView artistView;
 
-
-    MyPlaylistAdapter mAdapter;
-    String table = "Favorite";
+    MyWachtrijAdapter mAdapter;
+    ArrayList<ObWachtrij> list = new ArrayList<>();
 
 
     public infoFavoriteFragment() {
@@ -41,11 +46,12 @@ public class infoFavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info_playlist, container, false);
         listview = (ListView) view.findViewById(R.id.PlayListView);
 
-        deleteTable(table);
+        String table = "Favorite";
+
         createTable(table);
 
-        ArrayList<ObPlaylist> list = new ArrayList<>();
-        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
+
+        /*Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
         Log.d("Reading: ", "Reading all tables..");
         Log.d("Reading: ", "DE GOEDE!!!!!!!!!!!!!");
         Cursor cursor = db.getAllSongs(new ObSong(1,"path", table));
@@ -53,21 +59,22 @@ public class infoFavoriteFragment extends Fragment {
         if (cursor.moveToFirst()) {
             while ( !cursor.isAfterLast() ) {
                 String t = cursor.getString(1);
-                //Log.d("TABLES: : ", t);
-                    list.add(new ObPlaylist(t));
-                    cursor.moveToNext();
+                Log.d("TABLES: : ", t);
+                list.add(new ObWachtrij(null, null, t, null, null));
+                cursor.moveToNext();
 
             }
         }
 
-        mAdapter = new MyPlaylistAdapter(applicationContext, list);
+        mAdapter = new MyWachtrijAdapter(applicationContext, list);
         listview.setAdapter(mAdapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((MainActivity)getActivity()).send(position, listview, list);
             }
-        });
+        });*/
 
         // Inflate the layout for this fragment
         return view;
@@ -78,19 +85,6 @@ public class infoFavoriteFragment extends Fragment {
         Log.d("Insert:", "Creating...");
         db.create(new ObSong(1,"path", table));
     }
-
-    public void insertSong(String table, String path){
-        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
-        Log.d("Insert:", "Inserting...");
-        db.addSong(new ObSong(1, path, table));
-    }
-
-    public void deleteTable(String table){
-        Log.d("Reading: ", "DATABASE!!!!!!!!!!!!!!11");
-        Log.d("Reading: ", "Deleting..");
-        db.deleteTable(new ObSong(1,"path", table));
-    }
-
 }
 
 
