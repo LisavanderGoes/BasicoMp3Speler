@@ -1,6 +1,6 @@
 # BasicoMp3Speler
 School project 
-Gemaakt op 5-04-2018
+Begonnen op 19-02-2018
 
 Een android app gemaakt in Android Studio
 
