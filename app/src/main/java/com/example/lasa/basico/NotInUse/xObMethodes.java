@@ -1,4 +1,4 @@
-package com.example.lasa.basico;
+package com.example.lasa.basico.NotInUse;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;

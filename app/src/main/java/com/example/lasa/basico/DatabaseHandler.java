@@ -1,9 +1,8 @@
-package com.example.lasa.basico;
+package com.example.lasa.basico.DB;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -71,15 +70,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String table = obSong.getTable();
         int id = obSong.getId();
-
-        /*Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
-                        PATH }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        ObSong contact = new ObSong(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), table);*/
 
         String query = "SELECT " + DATA +
                 " FROM " + table +

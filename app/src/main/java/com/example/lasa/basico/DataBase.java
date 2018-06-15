@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.lasa.basico.DB.DatabaseHandler;
+
 import java.util.List;
 
 public class DataBase extends AppCompatActivity {
